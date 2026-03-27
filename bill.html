@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hotel Bill</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .bill-box { border: 1px solid #ccc; padding: 20px; max-width: 400px; margin: auto; }
+  </style>
+</head>
+<body>
+  <div class="bill-box">
+    <h2>Hotel Paradise - Booking Bill</h2>
+    <p><strong>Name:</strong> <span id="name"></span></p>
+    <p><strong>Email:</strong> <span id="email"></span></p>
+    <p><strong>Room Type:</strong> <span id="roomType"></span></p>
+    <p><strong>Check-in:</strong> <span id="checkin"></span></p>
+    <p><strong>Check-out:</strong> <span id="checkout"></span></p>
+    <p><strong>Total Nights:</strong> <span id="nights"></span></p>
+    <p><strong>Price per Night:</strong> ₹<span id="pricePerNight"></span></p>
+    <hr>
+    <h3>Total Bill: ₹<span id="total"></span></h3>
+  </div>
+
+  <script>
+    const data = JSON.parse(localStorage.getItem("bookingData"));
+    if (!data) {
+      document.body.innerHTML = "<p>No booking data found.</p>";
+    } else {
+      const roomPrices = {
+        "Single Room": 1000,
+        "Double Room": 1800,
+        "Deluxe Suite": 3000
+      };
+
+      const checkinDate = new Date(data.checkin);
+      const checkoutDate = new Date(data.checkout);
+      const timeDiff = checkoutDate - checkinDate;
+      const nights = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+      const pricePerNight = roomPrices[data.roomType] || 0;
+      const total = nights * pricePerNight;
+
+      document.getElementById("name").textContent = data.name;
+      document.getElementById("email").textContent = data.email;
+      document.getElementById("roomType").textContent = data.roomType;
+      document.getElementById("checkin").textContent = data.checkin;
+      document.getElementById("checkout").textContent = data.checkout;
+      document.getElementById("nights").textContent = nights;
+      document.getElementById("pricePerNight").textContent = pricePerNight;
+      document.getElementById("total").textContent = total;
+    }
+  </script>
+</body>
+</html>
