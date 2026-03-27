@@ -78,4 +78,4 @@ This project focuses on frontend development using HTML, CSS, and JavaScript, si
 
 
 
-This project demonstrates how a real-world hotel booking system works using frontend technologies. It provides a strong foundation for building full-stack applications in the future.
+
